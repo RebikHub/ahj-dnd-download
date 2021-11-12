@@ -1,7 +1,7 @@
-import Gallery from './gallery';
+import Download from "./download";
 
 console.log('app started');
 
-const gallery = new Gallery();
+const dManager = new Download();
 
-gallery.events();
+dManager.events();
