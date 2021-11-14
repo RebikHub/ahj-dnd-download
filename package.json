@@ -1,8 +1,8 @@
 {
-  "name": "ahj-events-gallery",
+  "name": "ahj-dnd-download",
   "version": "1.0.0",
   "main": "index.js",
-  "repository": "https://github.com/RebikHub/ahj-events-gallery.git",
+  "repository": "https://github.com/RebikHub/ahj-dnd-download.git",
   "author": "RebiHub <rebikovlk@mail.ru>",
   "license": "MIT",
   "scripts": {

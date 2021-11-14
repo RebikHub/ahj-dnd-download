@@ -36,3 +36,7 @@ tr {
 td > a {
     color: black;
 }
+
+.none {
+    display: none;
+}
