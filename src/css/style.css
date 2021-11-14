@@ -3,10 +3,6 @@
     margin: 0px;
 }
 
-body {
-
-}
-
 #container {
     display: flex;
     flex-direction: column;
@@ -26,15 +22,20 @@ body {
     margin: 5px 0px 10px 10px;
 }
 
-.table-body {
-}
-
 tr {
     height: 30px;
 }
 
 td > a {
     color: black;
+}
+
+.download-size {
+    width: 500px;
+    margin-top: 5px;
+    margin-left: auto;
+    margin-right: auto;
+    display: table;
 }
 
 .none {

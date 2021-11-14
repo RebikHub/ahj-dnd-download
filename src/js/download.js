@@ -4,6 +4,7 @@ export default class Download {
   constructor() {
     this.tBody = document.querySelector('.table-body');
     this.size = document.querySelector('.download-size');
+    this.sumSize = null;
   }
 
   events() {
@@ -11,7 +12,6 @@ export default class Download {
   }
 
   createTable(array) {
-    // console.log(arrayLinks);
     array.forEach((elem) => {
       const tr = document.createElement('tr');
       const tdName = document.createElement('td');
@@ -22,64 +22,43 @@ export default class Download {
       tdSize.textContent = elem.size;
       tdLinkSrc.textContent = 'Download';
       tdLinkSrc.href = elem.link;
+      tdLinkSrc.setAttribute('download', `${elem.name}`);
       tdLink.appendChild(tdLinkSrc);
       tr.appendChild(tdName);
       tr.appendChild(tdSize);
       tr.appendChild(tdLink);
       this.tBody.appendChild(tr);
     });
-    Download.clickTodownload();
+    this.clickTodownload();
   }
 
-  static clickTodownload() {
+  clickTodownload() {
     const links = document.querySelectorAll('td > a');
     for (const i of links) {
       i.addEventListener('click', (ev) => {
-        ev.preventDefault();
         const file = ev.target.href;
-        // Download.dataURLtoFile(file);
-        // console.log(Download.dataURLtoFile(file));
-        // console.log(ev.target.href.split(',')[1]);
-        const reader = new FileReader();
-        // reader.readAsDataURL(file);
-        console.log(reader.readAsDataURL(file));
+        const fileName = ev.target.getAttribute('download');
+        this.sumSize += atob(file.split(',')[1]).length;
+        if (!this.size.classList.contains('none')) {
+          this.size.textContent = null;
+        }
+        this.size.classList.remove('none');
+        this.size.textContent = `You've already downloaded: ${Number((this.sumSize / 1048576).toFixed(2))} Mb`;
       });
     }
-    // console.log(links);
-  }
-
-  static dataURLtoFile(dataUrl, fileName) {
-    const arr = dataUrl.split(',');
-    console.log(arr);
-    const mime = arr[0].match(/:(.*?);/)[1];
-    console.log(mime);
-    const bstr = atob(arr[1]);
-    console.log(bstr);
-    let n = bstr.length;
-    console.log(n);
-    const u8arr = new Uint8Array(n);
-    console.log(u8arr);
-    while (n--) {
-      u8arr[n] = bstr.charCodeAt(n);
-    }
-    return new File([u8arr], fileName, { type: mime });
   }
 
   static inputAndConvert() {
     const input = document.querySelector('.input-pdf');
     input.addEventListener('change', () => {
       const selectedFile = input.files;
-      // console.log(input.files);
-      if (selectedFile.length > 0) {
-        const fileToLoad = selectedFile[0];
-        // console.log(fileToLoad);
-        const fileReader = new FileReader();
-        fileReader.onload = (fileLoadedEvent) => {
-          const base64 = fileLoadedEvent.target.result;
-          // console.log(base64);
-        };
-        fileReader.readAsDataURL(fileToLoad);
+      const fileToLoad = selectedFile[0];
+      const fileReader = new FileReader();
+      fileReader.onload = (fileLoadedEvent) => {
+        const base64 = fileLoadedEvent.target.result;
+        console.log(base64);
       }
+      fileReader.readAsDataURL(fileToLoad);
     });
   }
 }
