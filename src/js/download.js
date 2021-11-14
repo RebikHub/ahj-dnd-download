@@ -37,7 +37,6 @@ export default class Download {
     for (const i of links) {
       i.addEventListener('click', (ev) => {
         const file = ev.target.href;
-        const fileName = ev.target.getAttribute('download');
         this.sumSize += atob(file.split(',')[1]).length;
         if (!this.size.classList.contains('none')) {
           this.size.textContent = null;
@@ -57,7 +56,7 @@ export default class Download {
       fileReader.onload = (fileLoadedEvent) => {
         const base64 = fileLoadedEvent.target.result;
         console.log(base64);
-      }
+      };
       fileReader.readAsDataURL(fileToLoad);
     });
   }
